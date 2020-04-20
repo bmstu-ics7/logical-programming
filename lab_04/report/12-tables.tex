@@ -1,0 +1,362 @@
+\section{ФОРМИРОВАНИЕ ОТВЕТА}
+
+\subsection{Задание 1}
+
+Для каждого из трех вариантов словесно подробно описать порядок формирования ответа (в виде таблицы). При этом, указать – отметить моменты очередного запуска алгоритма унификации и полный результат его работы. Обосновать следующий шаг работы системы. Выписать унификаторы – подстановки. Указать моменты, причины и результат отката, если он есть.
+
+{
+\small
+\begin{longtable}{|p{1.15cm}|p{8cm}|p{8cm}|}
+    \caption{findWithCar(``Mercedes'', ``Black'', Lastname, City, Phonenumber, Bank).} \\
+    \hline
+    № шага & Сравниваемые термы: результат; подстановка, если есть & Дальнейшие действия: прямой ход или откат \\
+    \hline
+    1 & Подстановка: Mark = ``Mercedes'', Color = ``Black'', Lastname = Lastname, City = City, Phonenumber = Phonenumber, Bank = Bank & Прямой ход \\
+      & findWithCar(``Mercedes'', ``Black'', Lastname, City, Phonenumber, Bank) & \\
+      & findWithcar(\_, Mark, Color, Lastname, City, Phonenumber, Bank). & \\
+    \hline
+    2 & Сравнение: ``Mercedes'' и ``Mercedes'', ``Black'' и ``Black'' & Прямой ход, унификация успешна \\
+      & car(\_, Mark, Color, \_, \_) & \\
+      & car(``Ivanov'', ``Mercedes'', ``Black'', 3000000, ``Moscow''). & \\
+    \hline
+    3 & Подстановка: Lastname = ``Ivanov'', City = ``Moscow'' & Прямой ход \\
+    \hline
+    4 & Сравнение: ``Ivanov'' и ``Ivanov'', ``Moscow'' и ``Moscow'' & Прямой ход, унификация успешна \\
+      & telephone(Lastname, \_, \_, address(City, \_, \_, \_)). & \\
+      & telephone(``Ivanov'', ``123456'', address(``Moscow'', ``Pyshkinskaya'', 12, 13)). & \\
+    \hline
+    5 & Подстановка: Phonenumber = ``123456'' & Прямой ход \\
+    \hline
+    6 & Сравнение: ``Ivanov'' и ``Ivanov'', ``Moscow'' и ``Moscow'' & Прямой ход, унификация успешна \\
+      & deposit(Lastname, \_, \_, \_, City). & \\
+      & deposit(``Ivanov'', ``Tinkoff'', ``111222333444'', 40000, ``Moscow''). & \\
+    \hline
+    7 & Подстановка: Bank = ``Tinkoff'' & Прямой ход \\
+    \hline
+    8 & \textbf{Вывод результата} & Откат \\
+      & \textbf{Lastname = Ivanov, City = Moscow, Phonenumber = 123456, Bank = Tinkoff} & \\
+    \hline
+    9 & Сравнение: ``Ivanov'' и ``Ivanova'' & Прямой ход, унификация безуспешна \\
+      & deposit(Lastname, \_, \_, \_, City). & \\
+      & deposit(``Ivanova'', ``Tinkoff'', ``117227337447'', 20000, ``Moscow''). & \\
+    \hline
+    10 & Сравнение: ``Ivanov'' и ``Ivanov'', ``Moscow'' и ``Moscow'' & Прямой ход, унификация успешна \\
+       & deposit(Lastname, \_, \_, \_, City). & \\
+       & deposit(``Ivanov'', ``Sberbank'', ``444333222111'', 100000, ``Moscow''). & \\
+    \hline
+    11 & Подстановка: Bank = ``Sberbank'' & Прямой ход \\
+    \hline
+    12 & \textbf{Вывод результата} & Откат \\
+       & \textbf{Lastname = Ivanov, City = Moscow, Phonenumber = 123456, Bank = Sberbank} & \\
+    \hline
+    13 & Сравнение: ``Ivanov'' и ``Ivanov'', ``Moscow'' и ``SP'' & Прямой ход, унификация безуспешна \\
+       & deposit(Lastname, \_, \_, \_, City). & \\
+       & deposit(``Ivanov'', ``Tinkoff'', ``123456789000'', 150000, ``SP''). & \\
+    \hline
+    14 & Сравнение: ``Ivanov'' и ``Petrov'' & Прямой ход, унификация безуспешна \\
+       & deposit(Lastname, \_, \_, \_, City). & \\
+       & deposit(``Petrov'', ``Alpha-bank'', ``222333111444'', 10000, ``Moscow''). & \\
+    \hline
+    15 & Сравнение: ``Ivanov'' и ``Petrov'' & Откат, унификация безуспешна \\
+       & deposit(Lastname, \_, \_, \_, City). & \\
+       & deposit(``Petrov'', ``Sberbank'', ``123123321321'', 120000, ``Moscow''). & \\
+    \hline
+    16 & Сравнение: ``Ivanov'' и ``Ivanova'' & Прямой ход, унификация безуспешна \\
+      & telephone(Lastname, \_, \_, address(City, \_, \_, \_)). & \\
+      & telephone(``Ivanova'', ``123421'', address(``Moscow'', ``Pyshkinskaya'', 12, 13)). & \\
+    \hline
+    17 & Сравнение: ``Ivanov'' и ``Ivanov'', ``Moscow'' и ``SP'' & Прямой ход, унификация безуспешна \\
+      & telephone(Lastname, \_, \_, address(City, \_, \_, \_)). & \\
+      & telephone(``Ivanov'', ``654321'', address(``SP'', ``Sadovaya'', 10, 127)). & \\
+    \hline
+    18 & Сравнение: ``Ivanov'' и ``Ivanov'', ``Moscow'' и ``SP'' & Прямой ход, унификация безуспешна \\
+      & telephone(Lastname, \_, \_, address(City, \_, \_, \_)). & \\
+      & telephone(``Ivanov'', ``222444'', address(``SP'', ``Sadovaya'', 10, 127)). & \\
+    \hline
+    19 & Сравнение: ``Ivanov'' и ``Petrov'' & Прямой ход, унификация безуспешна \\
+      & telephone(Lastname, \_, \_, address(City, \_, \_, \_)). & \\
+      & telephone(``Petrov'', ``554322'', address(``Moscow'', ``Baymanskaya'', 7, 53)). & \\
+    \hline
+    20 & Сравнение: ``Ivanov'' и ``Petrov'' & Откат, унификация безуспешна \\
+      & telephone(Lastname, \_, \_, address(City, \_, \_, \_)). & \\
+      & telephone(``Petrov'', ``223544'', address(``Moscow'', ``Baymanskaya'', 7, 53)). & \\
+    \hline
+    22 & Сравнение: ``Mercedes'' и ``Mercedes'', ``Black'' и ``Black'' & Прямой ход, унификация успешна \\
+       & car(\_, Mark, Color, \_, \_) & \\
+       & car(``Ivanova'', ``Mercedes'', ``Black'', 3000000, ``Moscow''). & \\
+    \hline
+    23 & Подстановка: Lastname = ``Ivanova'', City = ``Moscow'' & Прямой ход \\
+    \hline
+    25 & Сравнение: ``Ivanova'' и ``Ivanov'' & Прямой ход, унификация безуспешна \\
+      & telephone(Lastname, \_, \_, address(City, \_, \_, \_)). & \\
+      & telephone(``Ivanov'', ``123456'', address(``Moscow'', ``Pyshkinskaya'', 12, 13)). & \\
+    \hline
+    26 & Сравнение: ``Ivanova'' и ``Ivanova'', ``Moscow'' и ``Moscow'' & Прямой ход, унификация успешна \\
+      & telephone(Lastname, \_, \_, address(City, \_, \_, \_)). & \\
+      & telephone(``Ivanova'', ``123421'', address(``Moscow'', ``Pyshkinskaya'', 12, 13)). & \\
+    \hline
+    27 & Подстановка: Phonenumber = ``123421'' & Прямой ход \\
+    \hline
+    28 & Сравнение: ``Ivanova'' и ``Ivanov'' & Прямой ход, унификация безуспешна \\
+      & deposit(Lastname, \_, \_, \_, City). & \\
+      & deposit(``Ivanov'', ``Tinkoff'', ``111222333444'', 40000, ``Moscow''). & \\
+    \hline
+    29 & Сравнение: ``Ivanova'' и ``Ivanova'', ``Moscow'' и ``Moscow'' & Прямой ход, унификация успешна \\
+      & deposit(Lastname, \_, \_, \_, City). & \\
+      & deposit(``Ivanova'', ``Tinkoff'', ``117227337447'', 20000, ``Moscow''). & \\
+    \hline
+    30 & Подстановка: Bank = ``Tinkoff'' & Прямой ход \\
+    \hline
+    31 & \textbf{Вывод результата} & Откат \\
+      & \textbf{Lastname = Ivanova, City = Moscow, Phonenumber = 123421, Bank = Tinkoff} & \\
+    \hline
+    32 & Сравнение: ``Ivanova'' и ``Ivanov'' & Прямой ход, унификация безуспешна \\
+       & deposit(Lastname, \_, \_, \_, City). & \\
+       & deposit(``Ivanov'', ``Sberbank'', ``444333222111'', 100000, ``Moscow''). & \\
+    \hline
+    33 & Сравнение: ``Ivanova'' и ``Ivanov'' & Прямой ход, унификация безуспешна \\
+       & deposit(Lastname, \_, \_, \_, City). & \\
+       & deposit(``Ivanov'', ``Tinkoff'', ``123456789000'', 150000, ``SP''). & \\
+    \hline
+    34 & Сравнение: ``Ivanova'' и ``Petrov'' & Прямой ход, унификация безуспешна \\
+       & deposit(Lastname, \_, \_, \_, City). & \\
+       & deposit(``Petrov'', ``Alpha-bank'', ``222333111444'', 10000, ``Moscow''). & \\
+    \hline
+    35 & Сравнение: ``Ivanova'' и ``Petrov'' & Откат, унификация безуспешна \\
+       & deposit(Lastname, \_, \_, \_, City). & \\
+       & deposit(``Petrov'', ``Sberbank'', ``123123321321'', 120000, ``Moscow''). & \\
+    \hline
+    36 & Сравнение: ``Ivanova'' и ``Ivanov'' & Прямой ход, унификация безуспешна \\
+      & telephone(Lastname, \_, \_, address(City, \_, \_, \_)). & \\
+      & telephone(``Ivanov'', ``654321'', address(``SP'', ``Sadovaya'', 10, 127)). & \\
+    \hline
+    37 & Сравнение: ``Ivanova'' и ``Ivanov'' & Прямой ход, унификация безуспешна \\
+      & telephone(Lastname, \_, \_, address(City, \_, \_, \_)). & \\
+      & telephone(``Ivanov'', ``222444'', address(``SP'', ``Sadovaya'', 10, 127)). & \\
+    \hline
+    38 & Сравнение: ``Ivanova'' и ``Petrov'' & Прямой ход, унификация безуспешна \\
+      & telephone(Lastname, \_, \_, address(City, \_, \_, \_)). & \\
+      & telephone(``Petrov'', ``554322'', address(``Moscow'', ``Baymanskaya'', 7, 53)). & \\
+    \hline
+    39 & Сравнение: ``Ivanova'' и ``Petrov'' & Откат, унификация безуспешна \\
+      & telephone(Lastname, \_, \_, address(City, \_, \_, \_)). & \\
+      & telephone(``Petrov'', ``223544'', address(``Moscow'', ``Baymanskaya'', 7, 53)). & \\
+    \hline
+    40 & Сравнение: ``Mercedes'' и ``Renault'' & Прямой ход, унификация безуспешна \\
+       & car(\_, Mark, Color, \_, \_) & \\
+       & car(``Ivanov'', ``Renault'', ``Gray'', 1200000, ``Moscow''). & \\
+    \hline
+    41 & Сравнение: ``Mercedes'' и ``Lamborghini'' & Прямой ход, унификация безуспешна \\
+       & car(\_, Mark, Color, \_, \_) & \\
+       & car(``Ivanov'', ``Lamborghini'', ``Yellow'', 6000000, ``SP''). & \\
+    \hline
+    42 & Сравнение: ``Mercedes'' и ``Audi'' & Прямой ход, унификация безуспешна \\
+       & car(\_, Mark, Color, \_, \_) & \\
+       & car(``Petrov'', ``Audi'', ``Red'', 2000000, ``Moscow''). & \\
+    \hline
+    43 & Сравнение: ``Mercedes'' и ``Infiniti'' & Откат, унификация безуспешна \\
+       & car(\_, Mark, Color, \_, \_) & \\
+       & car(``Petrov'', ``Infiniti'', ``Black'', 4000000, ``Moscow''). & \\
+    \hline
+\end{longtable}
+}
+
+{
+\small
+\begin{longtable}{|p{1.15cm}|p{8cm}|p{8cm}|}
+    \caption{findWithCar(``Lamborghini'', ``Yellow'', Lastname, City, Phonenumber, Bank).} \\
+    \hline
+    № шага & Сравниваемые термы: результат; подстановка, если есть & Дальнейшие действия: прямой ход или откат \\
+    \hline
+    1 & Подстановка: Mark = ``Lamborghini'', Color = ``Yellow'', Lastname = Lastname, City = City, Phonenumber = Phonenumber, Bank = Bank & Прямой ход \\
+      & findWithCar(``Lamborghini'', ``Yellow'', Lastname, City, Phonenumber, Bank). & \\
+      & findWithcar(\_, Mark, Color, Lastname, City, Phonenumber, Bank). & \\
+    \hline
+    2 & Сравнение: ``Lamborghini'' и ``Mercedes'' & Прямой ход, унификация безуспешна \\
+      & car(\_, Mark, Color, \_, \_) & \\
+      & car(``Ivanov'', ``Mercedes'', ``Black'', 3000000, ``Moscow'') & \\
+    \hline
+    3 & Сравнение: ``Lamborghini'' и ``Mercedes'' & Прямой ход, унификация безуспешна \\
+      & car(\_, Mark, Color, \_, \_) & \\
+      & car(``Ivanova'', ``Mercedes'', ``Black'', 3000000, ``Moscow'') & \\
+    \hline
+    4 & Сравнение: ``Lamborghini'' и ``Renault'' & Прямой ход, унификация безуспешна \\
+      & car(\_, Mark, Color, \_, \_) & \\
+      & car(``Ivanov'', ``Renault'', ``Gray'', 1200000, ``Moscow'') & \\
+    \hline
+    5 & Сравнение: ``Lamborghini'' и ``Lamborghini'', ``Yellow'' и ``Yellow'' & Прямой ход, унификация успешна \\
+      & car(\_, Mark, Color, \_, \_) & \\
+      & car(``Ivanov'', ``Lamborghini'', ``Yellow'', 6000000, ``SP'') & \\
+    \hline
+    6 & Подстановка: Lastname = ``Ivanov'', City = ``SP'' & Прямой ход \\
+    \hline
+    7 & Сравнение: ``Ivanov'' и ``Ivanov'', ``SP'' и ``Moscow'' & Прямой ход, унификация безуспешна \\
+      & telephone(Lastname, \_, address(City, \_, \_, \_)) & \\
+      & telephone(``Ivanov'', ``123456'', address(``Moscow'', ``Pyshkinskaya'', 12, 13)). & \\
+    \hline
+    8 & Сравнение: ``Ivanov'' и ``Ivanova'', ``SP'' и ``Moscow'' & Прямой ход, унификация безуспешна \\
+      & telephone(Lastname, \_, address(City, \_, \_, \_)) & \\
+      & telephone(``Ivanova'', ``123421'', address(``Moscow'', ``Pyshkinskaya'', 12, 13)). & \\
+    \hline
+    9 & Сравнение: ``Ivanov'' и ``Ivanov'', ``SP'' и ``SP'' & Прямой ход, унификация успешна \\
+      & telephone(Lastname, \_, address(City, \_, \_, \_)) & \\
+      & telephone(``Ivanov'', ``654321'', address(``SP'', ``Sadovaya'', 10, 127)). & \\
+    \hline
+    10 & Подстановка: Phonenumber = ``654321'' & Прямой ход \\
+    \hline
+    11 & Сравнение: ``Ivanov'' и ``Ivanov'', ``SP'' и ``Moscow'' & Прямой ход, унификация безуспешна \\
+       & deposit(Lastname, \_, \_, \_, City). & \\
+       & deposit(``Ivanov'', ``Tinkoff'', ``111222333444'', 40000, ``Moscow''). & \\
+    \hline
+    12 & Сравнение: ``Ivanov'' и ``Ivanova'' & Прямой ход, унификация безуспешна \\
+       & deposit(Lastname, \_, \_, \_, City). & \\
+       & deposit(``Ivanova'', ``Tinkoff``, ``117227337447``, 20000, ``Moscow''). & \\
+    \hline
+    13 & Сравнение: ``Ivanov'' и ``Ivanov'', ``SP'' и ``Moscow'' & Прямой ход, унификация безуспешна \\
+       & deposit(Lastname, \_, \_, \_, City). & \\
+       & deposit(``Ivanov'', ``Sberbank``, ``444333222111``, 100000, ``Moscow''). & \\
+    \hline
+    14 & Сравнение: ``Ivanov'' и ``Ivanov'', ``SP'' и ``SP'' & Прямой ход, унификация успешна \\
+       & deposit(Lastname, \_, \_, \_, City). & \\
+       & deposit(``Ivanov'', ``Tinkoff``, ``123456789000``, 150000, ``SP''). & \\
+    \hline
+    15 & Подстановка: Bank = ``Tinkoff'' & Прямой ход \\
+    \hline
+    16 & \textbf{Вывод результата} & Откат \\
+       & Lastname = Ivanov, City = SP, Phonenumber = 654321, Bank = Tinkoff & \\
+    \hline
+    17 & Сравнение: ``Ivanov'' и ``Petrov'' & Прямой ход, унификация безуспешна \\
+       & deposit(Lastname, \_, \_, \_, City). & \\
+       & deposit(``Petrov'', ``Alpha-bank``, ``222333111444``, 10000, ``Moscow''). & \\
+    \hline
+    18 & Сравнение: ``Ivanov'' и ``Petrov'' & Откат, унификация безуспешна \\
+       & deposit(Lastname, \_, \_, \_, City). & \\
+       & deposit(``Petrov'', ``Sberbank``, ``123123321321``, 120000, ``Moscow''). & \\
+    \hline
+    19 & Сравнение: ``Ivanov'' и ``Ivanov'', ``SP'' и ``SP'' & Прямой ход, унификация успешна \\
+      & telephone(Lastname, \_, address(City, \_, \_, \_)) & \\
+      & telephone(``Ivanov'', ``222444'', address(``SP'', ``Sadovaya'', 10, 127)). & \\
+    \hline
+    20 & Подстановка: Phonenumber = ``222444'' & Прямой ход \\
+    \hline
+    21 & Сравнение: ``Ivanov'' и ``Ivanov'', ``SP'' и ``Moscow'' & Прямой ход, унификация безуспешна \\
+       & deposit(Lastname, \_, \_, \_, City). & \\
+       & deposit(``Ivanov'', ``Tinkoff'', ``111222333444'', 40000, ``Moscow''). & \\
+    \hline
+    22 & Сравнение: ``Ivanov'' и ``Ivanova'' & Прямой ход, унификация безуспешна \\
+       & deposit(Lastname, \_, \_, \_, City). & \\
+       & deposit(``Ivanova'', ``Tinkoff``, ``117227337447``, 20000, ``Moscow''). & \\
+    \hline
+    23 & Сравнение: ``Ivanov'' и ``Ivanov'', ``SP'' и ``Moscow'' & Прямой ход, унификация безуспешна \\
+       & deposit(Lastname, \_, \_, \_, City). & \\
+       & deposit(``Ivanov'', ``Sberbank``, ``444333222111``, 100000, ``Moscow''). & \\
+    \hline
+    24 & Сравнение: ``Ivanov'' и ``Ivanov'', ``SP'' и ``SP'' & Прямой ход, унификация успешна \\
+       & deposit(Lastname, \_, \_, \_, City). & \\
+       & deposit(``Ivanov'', ``Tinkoff``, ``123456789000``, 150000, ``SP''). & \\
+    \hline
+    25 & Подстановка: Bank = ``Tinkoff'' & Прямой ход \\
+    \hline
+    26 & \textbf{Вывод результата} & Откат \\
+       & Lastname = Ivanov, City = SP, Phonenumber = 222444, Bank = Tinkoff & \\
+    \hline
+    27 & Сравнение: ``Ivanov'' и ``Petrov'' & Прямой ход, унификация безуспешна \\
+       & deposit(Lastname, \_, \_, \_, City). & \\
+       & deposit(``Petrov'', ``Alpha-bank``, ``222333111444``, 10000, ``Moscow''). & \\
+    \hline
+    28 & Сравнение: ``Ivanov'' и ``Petrov'' & Откат, унификация безуспешна \\
+       & deposit(Lastname, \_, \_, \_, City). & \\
+       & deposit(``Petrov'', ``Sberbank``, ``123123321321``, 120000, ``Moscow''). & \\
+    \hline
+    29 & Сравнение: ``Ivanov'' и ``Petrov'' & Прямой ход, унификация безуспешна \\
+      & telephone(Lastname, \_, address(City, \_, \_, \_)) & \\
+      & telephone(``Petrov'', ``554322'', address(``Moscow'', ``Baymanskaya'', 7, 53)). & \\
+    \hline
+    30 & Сравнение: ``Ivanov'' и ``Petrov'' & Откат, унификация безуспешна \\
+      & telephone(Lastname, \_, address(City, \_, \_, \_)) & \\
+      & telephone(``Petrov'', ``223544'', address(``Moscow'', ``Baymanskaya'', 7, 53)). & \\
+    \hline
+    31 & Сравнение: ``Lamborghini'' и ``Audi'' & Прямой ход, унификация безуспешна \\
+      & car(\_, Mark, Color, \_, \_) & \\
+      & car(``Petrov'', ``Audi'', ``Red'', 2000000, ``Moscow'') & \\
+    \hline
+    32 & Сравнение: ``Lamborghini'' и ``Infiniti'' & Откат, унификация безуспешна \\
+      & car(\_, Mark, Color, \_, \_) & \\
+      & car(``Petrov'', ``Infiniti'', ``Black'', 4000000, ``Moscow'') & \\
+    \hline
+\end{longtable}
+}
+
+{
+\small
+\begin{longtable}{|p{1.15cm}|p{8cm}|p{8cm}|}
+    \caption{findWithCar(``Infiniti'', ``Red'', Lastname, City, Phonenumber, Bank).} \\
+    \hline
+    № шага & Сравниваемые термы: результат; подстановка, если есть & Дальнейшие действия: прямой ход или откат \\
+    \hline
+    1 & Подстановка: Mark = ``Infiniti'', Color = ``Red'', Lastname = Lastname, City = City, Phonenumber = Phonenumber, Bank = Bank & Прямой ход \\
+      & findWithCar(``Infiniti'', ``Red'', Lastname, City, Phonenumber, Bank). & \\
+      & findWithcar(\_, Mark, Color, Lastname, City, Phonenumber, Bank). & \\
+    \hline
+    2 & Сравнение: ``Infiniti'' и ``Mercedes'' & Прямой ход, унификация безуспешна \\
+      & car(\_, Mark, Color, \_, \_) & \\
+      & car(``Ivanov'', ``Mercedes'', ``Black'', 3000000, ``Moscow'') & \\
+    \hline
+    3 & Сравнение: ``Infiniti'' и ``Mercedes'' & Прямой ход, унификация безуспешна \\
+      & car(\_, Mark, Color, \_, \_) & \\
+      & car(``Ivanova'', ``Mercedes'', ``Black'', 3000000, ``Moscow'') & \\
+    \hline
+    4 & Сравнение: ``Infiniti'' и ``Renault'' & Прямой ход, унификация безуспешна \\
+      & car(\_, Mark, Color, \_, \_) & \\
+      & car(``Ivanov'', ``Renault'', ``Gray'', 1200000, ``Moscow'') & \\
+    \hline
+    5 & Сравнение: ``Infiniti'' и ``Lamborghini'' & Прямой ход, унификация безуспешна \\
+      & car(\_, Mark, Color, \_, \_) & \\
+      & car(``Ivanov'', ``Lamborghini'', ``Yellow'', 6000000, ``SP'') & \\
+    \hline
+    6 & Сравнение: ``Infiniti'' и ``Audi'' & Прямой ход, унификация безуспешна \\
+      & car(\_, Mark, Color, \_, \_) & \\
+      & car(``Petrov'', ``Audi'', ``Red'', 2000000, ``Moscow'') & \\
+    \hline
+    7 & Сравнение: ``Infiniti'' и ``Infiniti'', ``Red'' и ``Black'' & Откат, унификация безуспешна \\
+      & car(\_, Mark, Color, \_, \_) & \\
+      & car(``Petrov'', ``Infiniti'', ``Black'', 4000000, ``Moscow'') & \\
+    \hline
+    8 & Вывод пустого результата & Откат \\
+    \hline
+\end{longtable}
+}
+
+\subsection{Задание 2}
+
+Для случая нескольких владельцев (2-х):
+
+приведите примеры (таблицы) работы системы при разных порядках следования в БЗ  процедур, и знаний в них: («Телефонный справочник», «Автомобили», «Вкладчики банков», или: «Автомобили», «Вкладчики банков», «Телефонный справочник»). Сделайте вывод: Одинаковы ли: множество работ и объем работ в разных случаях?
+
+При смене порядка следования процедур и знаний в БЗ, все действия останутся такими же, поскольку порядок правил в БЗ не влияет на работу программы.
+
+\subsection{Задание 3}
+
+Оформите 2 таблицы, демонстрирующие порядок работы алгоритма унификации вопроса и подходящего заголовка правила (для двух случаев из пункта 2) и укажите результаты его работы: ответ и побочный эффект.
+
+{
+\small
+\begin{longtable}{|p{1.15cm}|p{2.5cm}|p{5cm}|p{1cm}|p{7cm}|}
+    \caption{Алгоритм унификации для вопроса 1 из кода}\\
+    \hline
+    Шаг унификации & Резуль\-тирующая ячейка & Рабочее поле & Пункт алгоритма & Стек \\
+    \hline
+    0 & & & 1 & findWithCar(``Mercedes'', ``Black'', City, Phonenumber, Bank) := findWithCar(Mark, Color, Lastname, City, Phonenumber, Bank) :- car(Lastname, Mark, Color, \_, City), telephone(Lastname, Phonenumber, address(City, \_, \_, \_)), deposit(Lastname, Bank, \_, \_, City). \\
+    \hline
+    1 & & findWithCar(``Mercedes'', ``Black'', City, Phonenumber, Bank) := findWithCar(Mark, Color, Lastname, City, Phonenumber, Bank) :- car(Lastname, Mark, Color, \_, City), telephone(Lastname, Phonenumber, address(City, \_, \_, \_)), deposit(Lastname, Bank, \_, \_, City). $\longrightarrow$ & e & car(Lastname, Mark, Color, \_, City), telephone(Lastname, Phonenumber, address(City, \_, \_, \_)) = car(``Ivanov'', ``Mercedes'', ``Black'', 3000000, ``Moscow'') \\
+    \hline
+    2 & Lastname = ``Ivanov'', City = ``Moscow'' & $\longleftarrow$ car(Lastname, ``Mercedes'', ``Black'', \_, City) = car(``Ivanov'', ``Mercedes'', ``Black'', 3000000, ``Moscow'') $\longrightarrow$ & e & telephone(Lastname, Phonenumber, address(City, \_, \_, \_)) = telephone(``Ivanov'', ``123456'', address(``Moscow'', ``Pyshkinskaya'', 12, 13)) \\
+    \hline
+    3 & Lastname = ``Ivanov'', City = ``Moscow'', Phonenumber = ``123456'' & $\longleftarrow$ telephone(Lastname, Phonenumber, address(City, \_, \_, \_)) = telephone(``Ivanov'', ``123456'', address(``Moscow'', ``Pyshkinskaya'', 12, 13)) & e & deposit(Lastname, Bank, \_, \_, City) = deposit(``Ivanov'', ``Tinkoff'', ``111222333444'', 40000, ``Moscow'') \\
+    \hline
+    4 & Lastname = ``Ivanov'', City = ``Moscow'', Phonenumber = ``123456'', Bank = ``Tinkoff'' & $\longleftarrow$ deposit(Lastname, Bank, \_, \_, City) = deposit(``Ivanov'', ``Tinkoff'', ``111222333444'', 40000, ``Moscow'') $\longrightarrow$ & e & \\
+    \hline
+    Вывод & Подстановка & & & Стек пуст \\
+    \hline
+\end{longtable}
+}
