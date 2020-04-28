@@ -54,7 +54,7 @@ clauses
 	owner("Petrov", "Moscow", car(2000000, "Audi", "Red")).
 
 	owner("Ivanov", "Moscow", building(15000000, 150, "Moscow")).
-	owner("Ivanov", "Saint-Petersburg", building(12000000, 90, "Saint-Petersburg")).
+	owner("Ivanov", "Saint-Petersburg", building(12000000, 90, "Saint-Petesburg")).
 	owner("Petrov", "Moscow", building(8000000, 50, "Moscow")).
 
 	owner("Ivanova", "Moscow", territory(20000000, 500, "Shakhty")).
@@ -98,5 +98,6 @@ clauses
 		Sum = CostCar + CostBuilding + CostTerritory + CostBoat.
 
 goal
-	allProperties("Ivanov", "Moscow", Prop, Cost);
+	%allProperties("Ivanov", "Moscow", Prop, Cost).
+	%allProperties("Ivanov", "Saint-Petersburg", Prop).
 	sumOfCost("Ivanov", "Moscow", Sum).
