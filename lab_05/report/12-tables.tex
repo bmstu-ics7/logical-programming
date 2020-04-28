@@ -1,0 +1,83 @@
+\section{ФОРМИРОВАНИЕ ОТВЕТА}
+
+Для 2-го пункт и одной фамилии составить таблицу, отражающую конкретный порядок работы системы, с объяснениями порядка работы и особенностей использования доменов (указать конкретные Т1 и Т2 и полную подстановку на каждом шаге)
+
+{
+\small
+\begin{longtable}{|p{1.15cm}|p{8cm}|p{8cm}|}
+    \caption{allProperties(``Ivanov'', ``Moscow'', Prop, Cost).} \\
+    \hline
+    № шага & Сравниваемые термы: результат; подстановка, если есть & Дальнейшие действия: прямой ход или откат \\
+    \hline
+    1 & Подстановка: Lastname = ``Ivanov'', City = ``Moscow'', Prop = Property, Cost = Cost & Прямой ход \\
+      & allProperties(``Ivanov'', ``Moscow'', Prop, Cost). & \\
+      & allProperties(Lastname, City, Prop, Cost). & \\
+    \hline
+    2 & Сравнение: ``Ivanov'' и ``Ivanov'', ``Moscow'' и ``Moscow'' & Прямой ход \\
+      & owner(Lastname, City, car(\_, \_, \_)) & \\
+      & owner(``Ivanov'', ``Moscow'', car(3000000, ``Mercedes'', ``Black'')) & \\
+    \hline
+    3 & Подстановка: Cost = 3000000 & Прямой ход \\
+    \hline
+    4 & Подстановка: Property = ``Car'' & Прямой ход \\
+    \hline
+    5 & \textbf{Результат} & Обратный ход \\
+      & Cost = 3000000, Property = ``Car'' & \\
+    \hline
+    6 & Сравнение: ``Ivanov'' и ``Ivanova'' & Прямой ход \\
+      & owner(Lastname, City, car(\_, \_, \_)) & \\
+      & owner(``Ivanova``, ``Moscow``, car(3000000, ``Mercedes``, ``Black``)). & \\
+    \hline
+    7 & Сравнение: ``Ivanov'' и ``Ivanov'', ``Moscow'' и ``Saint-Petersburg'' & Прямой ход \\
+      & owner(Lastname, City, car(\_, \_, \_)) & \\
+      & owner(``Ivanov'', ``Saint-Petersburg'', car(6000000, ``Lamborghini'', ``Yellow'')) & \\
+    \hline
+    8 & Сравнение: ``Ivanov'' и ``Petrov'' & Обратный ход \\
+      & owner(Lastname, City, car(\_, \_, \_)) & \\
+      & owner(``Petrov'', ``Moscow'', car(2000000, ``Audi'', ``Red'')) & \\
+    \hline
+    9 & Подстановка: Lastname = ``Ivanov'', City = ``Moscow'', Prop = Property, Cost = Cost & Прямой ход \\
+      & allProperties(``Ivanov'', ``Moscow'', Prop, Cost). & \\
+      & allProperties(Lastname, City, Prop, Cost). & \\
+    \hline
+    10 & Сравнение: ``Ivanov'' и ``Ivanov'', ``Moscow'' и ``Moscow'' & Прямой ход \\
+       & owner(Lastname, City, building(\_, \_, \_)) & \\
+       & owner(``Ivanov'', ``Moscow'', building(15000000, 150, ``Moscow'')). & \\
+    \hline
+    11 & Подстановка: Cost = 15000000 & Прямой ход \\
+    \hline
+    12 & Подстановка: Property = ``Building'' & \\
+    \hline
+    13 & \textbf{Результат} & Обратный ход \\
+       & Cost = 15000000, Property = ``Building'' & \\
+    \hline
+    14 & Сравнение: ``Ivanov'' и ``Ivanov'', ``Moscow'' и ``Saint-Petersburg'' & Прямой ход \\
+       & owner(Lastname, City, building(\_, \_, \_)) & \\
+       & owner(``Ivanov'', ``Saint-Petersburg'', building(12000000, 90, ``Saint-Petersburg'')). & \\
+    \hline
+    15 & Сравнение: ``Ivanov'' и ``Petrov'' & Обратный ход \\
+       & owner(Lastname, City, building(\_, \_, \_)) & \\
+       & owner(``Petrov'', ``Moscow'', building(8000000, 50, ``Moscow'')). & \\
+    \hline
+    16 & Подстановка: Lastname = ``Ivanov'', City = ``Moscow'', Prop = Property, Cost = Cost & Прямой ход \\
+      & allProperties(``Ivanov'', ``Moscow'', Prop, Cost). & \\
+      & allProperties(Lastname, City, Prop, Cost). & \\
+    \hline
+    17 & Сравнение: ``Ivanov'' и ``Ivanova'' & Прямой ход \\
+       & owner(Lastname, City, territory(\_, \_, \_)) & \\
+       & owner(``Ivanova'', ``Moscow'', territory(20000000, 500, ``Shakhty'')).& \\
+    \hline
+    18 & Сравнение: ``Ivanov'' и ``Ivanov'', ``Moscow'' и ``Saint-Petersburg'' & Обратный ход \\
+       & owner(Lastname, City, territory(\_, \_, \_)) & \\
+       & owner(``Ivanov'', ``Saint-Petersburg'', territory(25000000, 700, ``Beloostrov'')). & \\
+    \hline
+    19 & Подстановка: Lastname = ``Ivanov'', City = ``Moscow'', Prop = Property, Cost = Cost & Прямой ход \\
+      & allProperties(``Ivanov'', ``Moscow'', Prop, Cost). & \\
+      & allProperties(Lastname, City, Prop, Cost). & \\
+    \hline
+    20 & Сравнение: ``Ivanov'' и ``Ivanov'', ``Moscow'' и ``Saint-Petersburg'' & Обратный ход \\
+       & owner(Lastname, City, boat(\_, \_, \_, \_)) & \\
+       & owner(``Ivanov'', ``Saint-Petersburg'', boat(15000000, ``Yacht'', ``Mangusta'', ``White'')). & \\
+    \hline
+\end{longtable}
+}
