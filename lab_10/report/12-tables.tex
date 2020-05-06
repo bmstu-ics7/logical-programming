@@ -1,0 +1,107 @@
+\section{ФОРМИРОВАНИЕ ОТВЕТА}
+
+Для одного из вариантов ВОПРОСА и одного из заданий  составить таблицу, отражающую конкретный порядок работы системы: Т.к. резольвента хранится в виде стека, то состояние резольвенты требуется отображать в столбик: вершина – сверху! Новый шаг надо начинать с нового состояния резольвенты! Для каждого запуска алгоритма унификации, требуется указать № выбранного правила и дальнейшие действия – и почему.
+
+{
+\small
+\begin{longtable}{|p{1.15cm}|p{6cm}|p{6cm}|p{4cm}|}
+    \caption{moreThat([4, 7, 1, 2, 8], 5, ResultMore)} \\
+    \hline
+    № шага & Состояние резольвенты, и вывод: дальнейшие действия (почему?) & Для каких термов запускается алгоритм унификации: T1=T2 и каков результат (и подстановка) & дальнейшие действия: прямой ход или откат (почему и к чему приводит?) \\
+    \hline
+    1 & moreThat([4, 7, 1, 2, 8], 5, ResultMore) & Подстановка: Head = 4, Tail = [7, 1, 2, 8], Number = 5, Result = ResultMore & Прямой ход \\
+      & & moreThat([4, 7, 1, 2, 8], 5, ResultMore) & \\
+      & & moreThat([Head|Tail], Number, Result) & \\
+    \hline
+    2 & Head > Number & 4 > 5 & Обратный ход \\
+      & moreThat(Tail, Number, TailResult) & & \\
+      & Result = [Head|TailResult] & & \\
+    \hline
+    3 & moreThat([4, 7, 1, 2, 8], 5, ResultMore) & Подстановка: Head = 4, Tail = [7, 1, 2, 8], Number = 5, Result = ResultMore & Прямой ход \\
+      & & moreThat([4, 7, 1, 2, 8], 5, ResultMore) & \\
+      & & moreThat([Head|Tail], Number, Result) & \\
+    \hline
+    4 & Head <= Number & 4 <= 5 & Прямой ход \\
+      & moreThat(Tail, Number, Result) & & \\
+    \hline
+    5 & moreThat(Tail, Number, Result) & Подстановка: Tail = [7, 1, 2, 8], Result = Result & Прямой ход \\
+      & & moreThat([7, 1, 2, 8], 5, ResultMore) & \\
+      & & moreThat([Head|Tail], Number, Result) & \\
+    \hline
+    6 & Head > Number & 7 > 5 & Прямой ход \\
+      & moreThat(Tail, Number, TailResult) & & \\
+      & Result = [Head|TailResult] & & \\
+    \hline
+    7 & moreThat(Tail, Number, TailResult) & Подстановка: Tail = [1, 2, 8], Number = 5, Result = TailResult & Прямой ход \\
+      & Result = [Head|TailResult] & & \\
+    \hline
+    8 & Head > Number & 1 > 5 & Обратный ход \\
+      & moreThat(Tail, Number, TailResult) & & \\
+      & Result = [Head|TailResult] & & \\
+      & Result = [Head|TailResult] & & \\
+    \hline
+    9 & moreThat(Tail, Number, TailResult) & Подстановка: Tail = [1, 2, 8], Number = 5, Result = TailResult & Прямой ход \\
+      & Result = [Head|TailResult] & & \\
+    \hline
+    10 & Head <= Number & 1 <= 5 & Прямой ход \\
+       & moreThat(Tail, Number, Result) & & \\
+       & Result = [Head|TailResult] & & \\
+    \hline
+    11 & moreThat(Tail, Number, Result) & Подстановка: Tail = [2, 8], Number = 5, Result = Result & Прямой ход \\
+       & Result = [Head|TailResult] & & \\
+    \hline
+    12 & Head > Number & 2 > 5 & Обратный ход \\
+       & moreThat(Tail, Number, TailResult) & & \\
+       & Result = [Head|TailResult] & & \\
+       & Result = [Head|TailResult] & & \\
+    \hline
+    13 & moreThat(Tail, Number, Result) & Подстановка: Tail = [2, 8], Number = 5, Result = Result & Прямой ход \\
+       & Result = [Head|TailResult] & & \\
+    \hline
+    14 & Head <= Number & 2 <= 5 & Прямой ход \\
+       & moreThat(Tail, Number, Result) & & \\
+       & Result = [Head|TailResult] & & \\
+    \hline
+    15 & moreThat(Tail, Number, Result) & Подстановка: Tail = [8], Number = 5, Result = Result & Прямой ход \\
+       & Result = [Head|TailResult] & & \\
+    \hline
+    16 & Head > Number & 8 > 5 & Прямой ход \\
+       & moreThat(Tail, Number, TailResult) & & \\
+       & Result = [Head|TailResult] & & \\
+       & Result = [Head|TailResult] & & \\
+    \hline
+    17 & moreThat(Tail, Number, TailResult) & Подстановка: Tail = [], Number = 5, Result = TailResult & Прямой ход \\
+       & Result = [Head|TailResult] & & \\
+       & Result = [Head|TailResult] & & \\
+    \hline
+    18 & ! & Отсечение & Прямой ход \\
+       & Result = [Head|TailResult] & & \\
+       & Result = [Head|TailResult] & & \\
+    \hline
+    19 & Result = [Head|TailResult] & Подстановка: Result = [8] & Прямой ход \\
+       & Result = [Head|TailResult] & & \\
+    \hline
+    20 & Result = [Head|TailResult] & Подстановка: Result = [7, 8] & \\
+    \hline
+    21 & Пустая & \textbf{Результат:} MoreResult = [7, 8] & Обратный ход \\
+    \hline
+    22 & moreThat(Tail, Number, Result) & Подстановка: Tail = [8], Result = Result & Прямой ход \\
+       & & moreThat([8], 5, ResultMore) & \\
+       & & moreThat([Head|Tail], Number, Result) & \\
+    \hline
+    23 & Head <= Number & 8 <= 5 & Обратный ход \\
+       & moreThat(Tail, Number, Result) & & \\
+    \hline
+    24 & moreThat(Tail, Number, Result) & Подстановка: Tail = [7, 1, 2, 8], Result = Result & Прямой ход \\
+       & & moreThat([7, 1, 2, 8], 5, ResultMore) & \\
+       & & moreThat([Head|Tail], Number, Result) & \\
+    \hline
+    25 & Head <= Number & 7 <= 5 & Обратный ход \\
+       & moreThat(Tail, Number, Result) & & \\
+    \hline
+\end{longtable}
+}
+
+\section{ВЫВОДЫ}
+
+Эффективность достигается за счет использования отсечения (!), которое останавливает поиски следующих фактов и правил. Так же за счет использования конструкции {\ttfamily [Head|Tail]} можно эффективно отделить голову списка от хвоста.
