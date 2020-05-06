@@ -12,13 +12,13 @@ predicates
 
 clauses
 	moreThat([], _, []) :- !.
-	moreThat([Head|Tile], Number, Result) :-
+	moreThat([Head|Tail], Number, Result) :-
 		Head > Number,
-		moreThat(Tile, Number, TileResult),
-		Result = [Head|TileResult].
-	moreThat([Head|Tile], Number, Result) :-
+		moreThat(Tail, Number, TailResult),
+		Result = [Head|TailResult].
+	moreThat([Head|Tail], Number, Result) :-
 		Head <= Number,
-		moreThat(Tile, Number, Result).
+		moreThat(Tail, Number, Result).
 
 	listOdd(List, Result) :- listOdd(List, Result, 0).
 	listOdd([], [], _) :- !.
