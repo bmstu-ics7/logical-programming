@@ -1,0 +1,159 @@
+\section{ФОРМИРОВАНИЕ ОТВЕТА}
+
+Для одного из вариантов ВОПРОСА и каждого задания  составить таблицу, отражающую конкретный порядок работы системы: Т.к. резольвента хранится в виде стека, то состояние резольвенты требуется отображать в столбик: вершина – сверху! Новый шаг надо начинать с нового состояния резольвенты!
+
+{
+\small
+\begin{longtable}{|p{1.15cm}|p{4cm}|p{6cm}|p{6cm}|}
+    \caption{factorial(4, Result)} \\
+    \hline
+    № шага & Состояние резольвенты, и вывод: дальнейшие действия (почему?) & Для каких термов запускается алгоритм унификации: T1=T2 и каков результат (и подстановка) & дальнейшие действия: прямой ход или откат (почему и к чему приводит?) \\
+    \hline
+    1 & factorial(4, Result) & Подстановка: N = 4, Result = Result & Прямой ход \\
+    \hline
+    2 & NextN = N - 1 & Подстановка NextN = 3 & Прямой ход \\
+      & factorial(NextN, NextResult) & & \\
+      & Result=N*NextResult & & \\
+    \hline
+    3 & factorial(NextN, NextResult) & Подстановка: N = 3, Result = NextResult & Прямой ход \\
+      & Result=N*NextResult & & \\
+    \hline
+    4 & NextN = N - 1 & Подстановка NextN = 2 & Прямой ход \\
+      & factorial(NextN, NextResult) & & \\
+      & Result=N*NextResult & & \\
+      & Result=N*NextResult & & \\
+    \hline
+    5 & factorial(NextN, NextResult) & Подстановка: N = 2, Result = NextResult & Прямой ход \\
+      & Result=N*NextResult & & \\
+      & Result=N*NextResult & & \\
+    \hline
+    6 & NextN = N - 1 & Подстановка NextN = 1 & Прямой ход \\
+      & factorial(NextN, NextResult) & & \\
+      & Result=N*NextResult & & \\
+      & Result=N*NextResult & & \\
+      & Result=N*NextResult & & \\
+    \hline
+    7 & factorial(NextN, NextResult) & Подстановка: N = 1, Result = NextResult & Прямой ход \\
+      & Result=N*NextResult & & \\
+      & Result=N*NextResult & & \\
+      & Result=N*NextResult & & \\
+    \hline
+    8 & NextN = N - 1 & Подстановка NextN = 0 & Прямой ход \\
+      & factorial(NextN, NextResult) & & \\
+      & Result=N*NextResult & & \\
+      & Result=N*NextResult & & \\
+      & Result=N*NextResult & & \\
+      & Result=N*NextResult & & \\
+    \hline
+    9 & factorial(NextN, NextResult) & Подстановка: N = 0, Result = NextResult & Прямой ход \\
+      & Result=N*NextResult & & \\
+      & Result=N*NextResult & & \\
+      & Result=N*NextResult & & \\
+      & Result=N*NextResult & & \\
+    \hline
+    10 & Result = 1 & Подстановка: Result = 1 & Прямой ход \\
+       & Result=N*NextResult & & \\
+       & Result=N*NextResult & & \\
+       & Result=N*NextResult & & \\
+       & Result=N*NextResult & & \\
+    \hline
+    11 & Result=N*NextResult & Подстановка: Result = 1 & Прямой ход \\
+       & Result=N*NextResult & & \\
+       & Result=N*NextResult & & \\
+       & Result=N*NextResult & & \\
+    \hline
+    12 & Result=N*NextResult & Подстановка: Result = 2 & Прямой ход \\
+       & Result=N*NextResult & & \\
+       & Result=N*NextResult & & \\
+    \hline
+    13 & Result=N*NextResult & Подстановка: Result = 6 & Прямой ход \\
+       & Result=N*NextResult & & \\
+    \hline
+    14 & Result=N*NextResult & Подстановка: Result = 24 & Прямой ход \\
+    \hline
+    15 & Пусто & \textbf{Результат:} Result = 24 & Обратный ход \\
+    \hline
+\end{longtable}
+}
+
+{
+\small
+\begin{longtable}{|p{1.15cm}|p{4cm}|p{6cm}|p{6cm}|}
+    \caption{fibb(4, Result)} \\
+    \hline
+    № шага & Состояние резольвенты, и вывод: дальнейшие действия (почему?) & Для каких термов запускается алгоритм унификации: T1=T2 и каков результат (и подстановка) & дальнейшие действия: прямой ход или откат (почему и к чему приводит?) \\
+    \hline
+    1 & fibb(4, Result) & Подстановка: N = 4, Result = Result & Прямой ход \\
+    \hline
+    2 & PN = N - 1 & Подстановка: PN = 3 & Прямой ход \\
+      & PPN = N - 2 & & \\
+      & fibb(PN, PResult) & & \\
+      & fibb(PPN, PPResult) & & \\
+      & Result = PResult + PPResult & & \\
+    \hline
+    3 & PPN = N - 2 & Подстановка: PPN = 2 & Прямой ход \\
+      & fibb(PN, PResult) & & \\
+      & fibb(PPN, PPResult) & & \\
+      & Result = PResult + PPResult & & \\
+    \hline
+    4 & fibb(PN, PResult) & Подстановка: N = 3, Result = PResult & Прямой ход \\
+      & fibb(PPN, PPResult) & & \\
+      & Result = PResult + PPResult & & \\
+    \hline
+    5 & PN = N - 1 & Подстановка: PN = 2 & Прямой ход \\
+      & PPN = N - 2 & & \\
+      & fibb(PN, PResult) & & \\
+      & fibb(PPN, PPResult) & & \\
+      & Result = PResult + PPResult & & \\
+      & fibb(PPN, PPResult) & & \\
+      & Result = PResult + PPResult & & \\
+    \hline
+    6 & PPN = N - 2 & PPN = 1 & Прямой ход \\
+      & fibb(PN, PResult) & & \\
+      & fibb(PPN, PPResult) & & \\
+      & Result = PResult + PPResult & & \\
+      & fibb(PPN, PPResult) & & \\
+      & Result = PResult + PPResult & & \\
+    \hline
+    7 & fibb(PN, PResult) & Подстановка: N = 2, Result = PResult & Прямой ход \\
+      & fibb(PPN, PPResult) & & \\
+      & Result = PResult + PPResult & & \\
+      & fibb(PPN, PPResult) & & \\
+      & Result = PResult + PPResult & & \\
+    \hline
+    8 & Result = 1 & Подстановка: Result = 1 & Прямой ход \\
+      & fibb(PPN, PPResult) & & \\
+      & Result = PResult + PPResult & & \\
+      & fibb(PPN, PPResult) & & \\
+      & Result = PResult + PPResult & & \\
+    \hline
+    9 & fibb(PPN, PPResult) & Подстановка: N = 1, Result = PPResult & Прямой ход \\
+      & Result = PResult + PPResult & & \\
+      & fibb(PPN, PPResult) & & \\
+      & Result = PResult + PPResult & & \\
+    \hline
+    10 & Result = 1 & Подстановка: Result = 1 & Прямой ход \\
+       & Result = PResult + PPResult & & \\
+       & fibb(PPN, PPResult) & & \\
+       & Result = PResult + PPResult & & \\
+    \hline
+    11 & Result = PResult + PPResult & Подстановка: Result = 2 & Прямой ход \\
+       & fibb(PPN, PPResult) & & \\
+       & Result = PResult + PPResult & & \\
+    \hline
+    12 & fibb(PPN, PPResult) & Подстановка: N = 2 & Прямой ход \\
+       & Result = PResult + PPResult & & \\
+    \hline
+    13 & Result = 1 & Подстановка: Result = 1 & Прямой ход \\
+       & Result = PResult + PPResult & & \\
+    \hline
+    14 & Result = PResult + PPResult & Подстановка: Result = 3 & Прямой ход \\
+    \hline
+    15 & Пусто & \textbf{Результат:} Result = 3 & Обратный ход \\
+    \hline
+\end{longtable}
+}
+
+\section{ВЫВОДЫ}
+
+Эффективность программы может быть достигнута за счет использования отсечения (!), которое останавливает поиск правил и фактов в программе.

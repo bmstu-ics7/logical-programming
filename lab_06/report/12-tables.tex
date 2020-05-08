@@ -1,0 +1,92 @@
+\section{ФОРМИРОВАНИЕ ОТВЕТА}
+
+Для одного из вариантов ВОПРОСА и конкретной БЗ составить таблицу, отражающую конкретный порядок работы системы, с объяснениями:
+
+\begin{itemize}
+    \item очередная проблема на каждом шаге и метод ее решения;
+    \item каково новое текущее состояние резольвенты, как получено;
+    \item какие дальнейшие действия? (Запускается ли алгоритм унификации? Каких термов? Почему этих?) ;
+    \item вывод по результатам очередного шага и дальнейшие действия.
+\end{itemize}
+
+{
+\small
+\begin{longtable}{|p{1.15cm}|p{4cm}|p{6cm}|p{6cm}|}
+    \caption{grandmaMother(person(``Alex'', ``Ivanov''), Grandma)} \\
+    \hline
+    № шага & Состояние резольвенты, и вывод: дальнейшие действия (почему?) & Для каких термов запускается алгоритм унификации: T1=T2 и каков результат (и подстановка) & дальнейшие действия: прямой ход или откат (почему и к чему приводит?) \\
+    \hline
+    1 & mother(Children, Mother), mother(Mother, Forefather) & Подстановка: Children = person(``Alex'', ``Ivanov''), Forefather = Grandma & Прямой ход \\
+    \hline
+    2 & mother(Mother, Forefather) & Сравнение: person(``Alex'', ``Ivanov'') и person(``Ivan'', ``Ivanov'') & Прямой ход \\
+      & & mother(Children, \_) & \\
+      & & mother(person(``Ivan'', ``Ivanov''), person(``Anna'', ``Ivanova'')). & \\
+    \hline
+    3 & mother(Mother, Forefather) & Сравнение: person(``Alex'', ``Ivanov'') и person(``Anastasia'', ``Ivanova'') & Прямой ход \\
+      & & mother(Children, \_) & \\
+      & & mother(person(``Anastasia'', ``Ivanova''), person(``Maria'', ``Makarova'')). & \\
+    \hline
+    4 & mother(Mother, Forefather) & Сравнение: person(``Alex'', ``Ivanov'') и person(``Vasiliy'', ``Makarov'') & Прямой ход \\
+      & & mother(Children, \_) & \\
+      & & mother(person(``Vasiliy'', ``Makarov''), person(``Maria'', ``Makarova'')). & \\
+    \hline
+    5 & mother(Mother, Forefather) & Сравнение: person(``Alex'', ``Ivanov'') и person(``Maria'', ``Petrova'') & Прямой ход \\
+      & & mother(Children, \_) & \\
+      & & mother(person(``Maria'', ``Petrova''), person(``Anastasia'', ``Ivanova'')). & \\
+    \hline
+    6 & mother(Mother, Forefather) & Сравнение: person(``Alex'', ``Ivanov'') и person(``Alex'', ``Ivanov'') & Прямой ход \\
+      & & mother(Children, \_) & \\
+      & & mother(person(``Alex'', ``Ivanov''), person(``Anastasia'', ``Ivanova'')). & \\
+    \hline
+    7 & mother(Mother, Forefather) & Подстановка: Mother = person(``Anastasia'', ``Ivanova'') & Прямой ход \\
+    \hline
+    8 & Пусто & Сравнение: person(``Anastasia'', ``Ivanova'') и person(``Ivan'', ``Ivanov'') & Прямой ход \\
+      & & mother(Mother, \_) & \\
+      & & mother(person(``Ivan'', ``Ivanov''), person(``Anna'', ``Ivanova'')). & \\
+    \hline
+    9 & Пусто & Сравнение: person(``Anastasia'', ``Ivanova'') и person(``Anastasia'', ``Ivanova'') & Прямой ход \\
+      & & mother(Mother, \_) & \\
+      & & mother(person(``Anastasia'', ``Ivanova''), person(``Maria'', ``Makarova'')). & \\
+    \hline
+    10 & Пусто & Подстановка: Forefather = person(``Maria'', ``Makarova'') & Прямой ход \\
+    \hline
+    11 & Пусто & \textbf{Результат:} Forefather = person(``Maria'', ``Makarova'') & Обратный ход \\
+    \hline
+    12 & Пусто & Сравнение: person(``Anastasia'', ``Ivanova'') и person(``Vasiliy'', ``Makarov'') & Прямой ход \\
+      & & mother(Mother, \_) & \\
+      & & mother(person(``Vasiliy'', ``Makarov''), person(``Maria'', ``Makarova'')). & \\
+    \hline
+    13 & Пусто & Сравнение: person(``Anastasia'', ``Ivanova'') и person(``Maria'', ``Petrova'') & Прямой ход \\
+      & & mother(Mother, \_) & \\
+      & & mother(person(``Maria'', ``Petrova''), person(``Anastasia'', ``Ivanova'')). & \\
+    \hline
+    14 & Пусто & Сравнение: person(``Anastasia'', ``Ivanova'') и person(``Alex'', ``Ivanov'') & Прямой ход \\
+      & & mother(Mother, \_) & \\
+      & & mother(person(``Alex'', ``Ivanov''), person(``Anastasia'', ``Ivanova'')). & \\
+    \hline
+    15 & Пусто & Сравнение: person(``Anastasia'', ``Ivanova'') и person(``Petr'', ``Ivanov'') & Прямой ход \\
+      & & mother(Mother, \_) & \\
+      & & mother(person(``Petr'', ``Ivanov''), person(``Anastasia'', ``Ivanova'')). & \\
+    \hline
+    15 & Пусто & Сравнение: person(``Anastasia'', ``Ivanova'') и person(``Nikita'', ``Petrov'') & Прямой ход \\
+      & & mother(Mother, \_) & \\
+      & & mother(person(``Nikita'', ``Petrov''), person(``Daria'', ``Petrova'')). & \\
+    \hline
+    16 & Пусто & Сравнение: person(``Anastasia'', ``Ivanova'') и person(``Arina'', ``Petrova'') & Обратный ход \\
+      & & mother(Mother, \_) & \\
+      & & mother(person(``Arina'', ``Petrova''), person(``Maria'', ``Petrova'')).& \\
+    \hline
+    17 & mother(Mother, Forefather) & Сравнение: person(``Alex'', ``Ivanov'') и person(``Petr'', ``Ivanov'') & Прямой ход \\
+      & & mother(Children, \_) & \\
+      & & mother(person(``Petr'', ``Ivanov''), person(``Anastasia'', ``Ivanova'')). & \\
+    \hline
+    18 & mother(Mother, Forefather) & Сравнение: person(``Alex'', ``Ivanov'') и person(``Nikita'', ``Petrov'') & Прямой ход \\
+      & & mother(Children, \_) & \\
+      & & mother(person(``Nikita'', ``Petrov''), person(``Daria'', ``Petrova'')). & \\
+    \hline
+    19 & mother(Mother, Forefather) & Сравнение: person(``Alex'', ``Ivanov'') и person(``Arina'', ``Petrova'') & Обратный ход \\
+      & & mother(Children, \_) & \\
+      & & mother(person(``Arina'', ``Petrova''), person(``Maria'', ``Petrova'')) & \\
+    \hline
+\end{longtable}
+}

@@ -1,0 +1,75 @@
+\section{ФОРМИРОВАНИЕ ОТВЕТА}
+
+Для одного из вариантов ВОПРОСА и одного из заданий  составить таблицу, отражающую конкретный порядок работы системы: Т.к. резольвента хранится в виде стека, то состояние резольвенты требуется отображать в столбик: вершина – сверху! Новый шаг надо начинать с нового состояния резольвенты! Для каждого запуска алгоритма унификации, требуется указать № выбранного правила и дальнейшие действия – и почему.
+
+{
+\small
+\begin{longtable}{|p{1.15cm}|p{6cm}|p{6cm}|p{4cm}|}
+    \caption{length([1, 2, 3, 4, 5], Length)} \\
+    \hline
+    № шага & Состояние резольвенты, и вывод: дальнейшие действия (почему?) & Для каких термов запускается алгоритм унификации: T1=T2 и каков результат (и подстановка) & дальнейшие действия: прямой ход или откат (почему и к чему приводит?) \\
+    \hline
+    1 & length([1, 2, 3, 4, 5], Length) & Подстановка: Tail = [2, 3, 4, 5], Length = Length & Прямой ход \\
+      & & length([1, 2, 3, 4, 5], Length) & \\
+      & & length([\_|Tail], Length) & \\
+    \hline
+    2 & length(Tail, TailLength) & Подстановка: Tail = [3, 4, 5], Length = TailLength & Прямой ход \\
+      & Length = TailLength + 1 & length([2, 3, 4, 5], TailLength) & \\
+    \hline
+    3 & length(Tail, TailLength) & Подстановка: Tail = [4, 5], Length = TailLength & Прямой ход \\
+      & Length = TailLength + 1 & length([3, 4, 5], TailLength) & \\
+      & Length = TailLength + 1 & length([\_|Tail], TailLength) & \\
+    \hline
+    4 & length(Tail, TailLength) & Подстановка: Tail = [5], Length = TailLength & Прямой ход \\
+      & Length = TailLength + 1 & length([4, 5], TailLength) & \\
+      & Length = TailLength + 1 & length([\_|Tail], Length) & \\
+      & Length = TailLength + 1 & & \\
+    \hline
+    5 & length(Tail, TailLength) & Подстановка: Tail = [], Length = TailLength & Прямой ход \\
+      & Length = TailLength + 1 & length([5], TailLength) & \\
+      & Length = TailLength + 1 & length([\_|Tail, Length], 0) & \\
+      & Length = TailLength + 1 & & \\
+      & Length = TailLength + 1 & & \\
+    \hline
+    6 & length(Tail, TailLength) & Сравнение: [] и [] & Прямой ход \\
+       & Length = TailLength + 1 & length([], TailLength) & \\
+       & Length = TailLength + 1 & length([], 0) & \\
+       & Length = TailLength + 1 & & \\
+       & Length = TailLength + 1 & & \\
+       & Length = TailLength + 1 & & \\
+    \hline
+    7 & length([], 0) & Подстановка: Taillength = 0 & Прямой ход \\
+       & Length = TailLength + 1 & & \\
+       & Length = TailLength + 1 & & \\
+       & Length = TailLength + 1 & & \\
+       & Length = TailLength + 1 & & \\
+       & Length = TailLength + 1 & & \\
+    \hline
+    8 & Length = TailLength + 1 & Подстановка: Length = 1 & Прямой ход \\
+       & Length = TailLength + 1 & & \\
+       & Length = TailLength + 1 & & \\
+       & Length = TailLength + 1 & & \\
+       & Length = TailLength + 1 & & \\
+    \hline
+    9 & Length = TailLength + 1 & Подстановка: Length = 2 & Прямой ход \\
+       & Length = TailLength + 1 & & \\
+       & Length = TailLength + 1 & & \\
+       & Length = TailLength + 1 & & \\
+    \hline
+    10 & Length = TailLength + 1 & Подстановка: Length = 3 & Прямой ход \\
+       & Length = TailLength + 1 & & \\
+       & Length = TailLength + 1 & & \\
+    \hline
+    11 & Length = TailLength + 1 & Подстановка: Length = 4 & Прямой ход \\
+       & Length = TailLength + 1 & & \\
+    \hline
+    12 & Length = TailLength + 1 & Подстановка: Length = 5 & Прямой ход \\
+    \hline
+    13 & Пусто & \textbf{Результат:} Length = 5 & Обратный ход \\
+    \hline
+\end{longtable}
+}
+
+\section{ВЫВОДЫ}
+
+Эффективность достигается за счет использования отсечения (!), которое останавливает поиски следующих фактов и правил. Так же за счет использования конструкции {\ttfamily [Head|Tile]} можно эффективно отделить голову списка от хвоста.
